@@ -1,0 +1,17 @@
+// Analyze solution
+Pipelines.Add("Code",
+	ReadSolution(@"..\..\soundcloud-api\SoundCloud.Api.sln")
+		.WhereProject(x => !x.EndsWith("Test")),
+	AnalyzeCSharp()
+		.WithDocsForImplicitSymbols()
+);
+
+// Razor().WithViewStart(@"_NamespaceTreeStart.cshtml"),
+// WriteFiles(".html") */
+
+// Write index.html with namespace tree
+Pipelines.Add("index",
+	ReadFiles("index.cshtml"),
+	Razor(),
+	WriteFiles(".html")
+);
