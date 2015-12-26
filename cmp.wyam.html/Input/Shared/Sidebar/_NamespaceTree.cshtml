@@ -1,0 +1,74 @@
+<div id="namespace-tree">
+    <h2>Project Structure</h2>
+    <hr />
+    <div class="tree">
+        <ul>
+            @foreach(IDocument namespaces in Documents.FromPipeline("Code")
+                                                     .Where(x => x.Get<bool>("IsResult") && x.String("Kind") == "Namespace" && x.String("QualifiedName") != string.Empty)
+                                                     .OrderBy(x => x.String("QualifiedName")))
+            {       
+                var members = namespaces.List<IDocument>("MemberTypes")
+                                        .Where(x => x.Get<bool>("IsResult"))
+                                        .OrderBy(x => x.String("QualifiedName"))
+                                        .ToList();
+                                            
+                @if (members.Count == 0)
+                { 
+                    continue;
+                }
+                                
+                
+                var isCurrentNamespace = false;
+                @if (!@Model.Get<bool>("IsIndex", false))
+                {
+                    isCurrentNamespace = (@Model.Get<IDocument>("ContainingNamespace")).String("SymbolId") == @namespaces.String("SymbolId");                    
+                }                
+                
+                var visibility = @isCurrentNamespace ? "block" : "none"; 
+                var active = @isCurrentNamespace ? "active" : ""; 
+                
+                <li class="@active">
+                    <a>@namespaces.String("QualifiedName") (@members.Count)</a>                    
+                    <ul style="display:@visibility">    
+                        @foreach(IDocument memberDocument in members)
+                        {
+                            var isSelected = false;
+                            @if (!@Model.Get<bool>("IsIndex", false))
+                            {
+                                isSelected = @Model.String("SymbolId") == @memberDocument.String("SymbolId");
+                            }
+                            
+                            var selected = @isSelected ? "selected" : "";
+                            
+                            <li class="child @selected">
+                                <a href="@Model.String("PathPrefix", string.Empty)@memberDocument.String("WritePath")">@memberDocument.String("FullName")</a>   
+                            </li>                                  
+                        }                  
+                    </ul>     
+                </li>
+            }
+        </ul>
+    </div>
+
+    <script>
+        $( document ).ready( function( ) {
+            $( '.tree li' ).each( function() {
+                if( $( this ).children( 'ul' ).length > 0 ) {
+                    $( this ).addClass( 'parent' );     
+                }
+            });
+        
+            $( '.tree li.parent > a' ).click( function( ) {
+                $( this ).parent().toggleClass( 'active' );
+                $( this ).parent().children( 'ul' ).slideToggle( 'fast' );
+            });
+        
+            $( '#all' ).click( function() {    
+                $( '.tree li' ).each( function() {
+                    $( this ).toggleClass( 'active' );
+                    $( this ).children( 'ul' ).slideToggle( 'fast' );
+                });
+            });
+        });
+    </script>
+</div>

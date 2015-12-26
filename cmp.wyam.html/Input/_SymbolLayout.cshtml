@@ -1,0 +1,15 @@
+@{
+	Layout = @"_Layout.cshtml";
+}
+        
+<h2>@Model.String("FullName") <small>@Model.String("SpecificKind")</small></h2>
+<hr />
+
+<p>@Model.String("Summary")</p>
+
+@Html.Partial("Section\\_Syntax")
+@Html.Partial("Section\\_EnumMember")
+@Html.Partial("Section\\_Properties")
+@Html.Partial("Section\\_Methods")
+
+@RenderBody()

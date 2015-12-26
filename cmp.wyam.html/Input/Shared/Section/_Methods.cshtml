@@ -1,0 +1,51 @@
+@{
+    var methods = Model.List<IDocument>("Members")
+                       .Where(x => x.Get<bool>("IsResult") && x.String("SpecificKind") == "Method" )
+                       .OrderBy(x => x.String("FullName"));
+                       
+    if (methods.Any())
+    {
+        <h3>Methods</h3>
+
+        <table class="table table-striped table-hover four-cols">
+            <tr>
+                <th>Accessibility</th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+                        
+            @foreach(IDocument method in methods)
+            {
+                <tr>
+                    <td>@method.String("Accessibility").ToLower()</td>
+                    
+                    @{
+                        var type = (@method.Get<IDocument>("ReturnType"));
+                        if (type != null)
+                        {
+                            var writeLink = !string.IsNullOrEmpty(type.String("WritePath"));
+                            
+                            <td>
+                                @if (writeLink) 
+                                {
+                                    <a href="@Model.String("PathPrefix", string.Empty)@type.String("WritePath")">@type.String("DisplayName")</a>
+                                }
+                                else
+                                {
+                                    <text>@type.String("DisplayName")</text>
+                                }
+                            </td>
+                        }
+                        else
+                        {
+                            <td>void</td>
+                        }
+                    }
+                    <td>@method.String("FullName")</td>
+                    <td>@method.String("Summary")</td>
+                </tr>                            
+            }    
+        </table>
+    }
+}

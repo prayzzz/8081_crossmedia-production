@@ -1,0 +1,79 @@
+body, html, main, div{
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+.four-cols th,
+.four-cols td {
+    width: 24%;
+}
+.four-cols th:last-child,
+.four-cols td:last-child {
+    width: 40%;
+}
+.four-cols th:first-child,
+.four-cols td:first-child {
+    width: 12%;
+}
+
+.tree ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 5px;
+}
+
+.tree .parent ul {
+    margin-left: 28px;
+}
+
+.tree li {
+    padding: 0px;
+    margin: 0px;
+    border-bottom: 1px #DDD solid;
+}
+        
+.tree .active {
+    border: 0px;
+}
+
+.tree .selected {
+    background-color: #F0F0F0;
+}
+
+.tree a {
+    color: #000;
+    cursor: pointer;
+    display:block; 
+    height: 100%;
+    padding: 10px 15px;
+    border-radius: 3px;
+}
+
+.tree .child a {    
+    padding: 5px 7px;
+}
+
+.tree a:hover {
+    background-color: #F5F5F5;
+    text-decoration: none;
+}
+
+.tree .parent > a:before {
+    font-family: FontAwesome;
+    content: "\f054";
+    margin-right: 10px;
+}
+
+.tree .active > a:before {
+    font-family: FontAwesome;
+    content: "\f078";
+    margin-right: 6px;
+}
+
+#namespace-tree
+{
+    border-right: 1px #DDD solid;
+    padding: 0px 10px 10px 10px;    
+}

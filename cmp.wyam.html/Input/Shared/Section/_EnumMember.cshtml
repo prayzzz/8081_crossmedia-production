@@ -1,0 +1,25 @@
+@{
+    var values = Model.List<IDocument>("Members")
+                      .Where(x => x.Get<bool>("IsResult") && x.String("SpecificKind") == "Field" )
+                      .OrderBy(x => x.String("FullName"));
+                       
+    if (values.Any())
+    {
+        <h3>Values</h3>
+
+        <table class="table table-striped table-hover four-cols">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+                        
+            @foreach(IDocument value in values)
+            {
+                <tr>
+                    <td>@value.String("FullName")</td>
+                    <td>@value.String("Summary")</td>
+                </tr>                            
+            }    
+        </table>
+    }
+}
