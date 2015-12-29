@@ -1,7 +1,16 @@
-body, html, main, div{
+body, html, main {
     margin: 0px;
     padding: 0px;
+    height: 100%;  
+}
+
+.row {
+    margin-right:0px;
     height: 100%;
+}
+
+.col {
+    height: 100%;    
 }
 
 .four-cols th,
