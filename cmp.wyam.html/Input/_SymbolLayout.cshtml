@@ -1,11 +1,12 @@
+@using System.Text.RegularExpressions;
+
 @{
 	Layout = @"_Layout.cshtml";
 }
         
 <h2>@Model.String("FullName") <small>@Model.String("SpecificKind")</small></h2>
-<hr />
 
-<p>@Model.String("Summary")</p>
+<p>@Regex.Replace(Model.String("Summary"), "<.*?>", string.Empty)</p>
 
 @Html.Partial("Section\\_Syntax")
 @Html.Partial("Section\\_EnumMember")

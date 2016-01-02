@@ -2,15 +2,34 @@ body, html, main {
     margin: 0px;
     padding: 0px;
     height: 100%;  
+    color:#3E464D;
 }
 
-.row {
-    margin-right:0px;
+main {
+    padding:5px;
+}
+
+h2 small{
+    font-size: 50%;
+}
+
+.container {    
     height: 100%;
+    max-width: 100%;
+    padding: 0px;
 }
 
-.col {
+.row {    
+    height: 100%;
+    width: 100%;
+}
+
+.column {
     height: 100%;    
+}
+
+code {
+    font-size: 100%;
 }
 
 .four-cols th,
@@ -40,7 +59,7 @@ body, html, main {
 .tree li {
     padding: 0px;
     margin: 0px;
-    border-bottom: 1px #DDD solid;
+    border-bottom: 1px #e1e1e1 solid;
 }
         
 .tree .active {
@@ -52,11 +71,11 @@ body, html, main {
 }
 
 .tree a {
-    color: #000;
+    color: #3E464D;
     cursor: pointer;
     display:block; 
     height: 100%;
-    padding: 10px 15px;
+    padding: 1.2rem 1.5rem;
     border-radius: 3px;
 }
 
@@ -84,5 +103,6 @@ body, html, main {
 #namespace-tree
 {
     border-right: 1px #DDD solid;
-    padding: 0px 10px 10px 10px;    
+    padding: 25px 10px 10px 10px;  
+    height: 100%;  
 }

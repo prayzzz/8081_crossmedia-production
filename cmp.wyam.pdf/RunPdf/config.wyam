@@ -7,7 +7,7 @@ Packages.Install("PDFsharp-MigraDoc-GDI", null, true);
 
 // Analyze solution
 Pipelines.Add("Code",
-	ReadSolution(@"..\..\..\..\..\..\SoundCloud.Api\SoundCloud.Api.sln")
+	ReadSolution(@"..\..\..\..\..\cmp.wyam.html\src\SoundCloud.Api\SoundCloud.Api.sln")
 		.WhereProject(x => !x.EndsWith("Test")),
 	AnalyzeCSharp()
         .WherePublic(true)

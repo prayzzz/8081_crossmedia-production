@@ -9,21 +9,23 @@
     <title>@ViewData["Title"]</title>
     
     <script src="@Model.String("PathPrefix", string.Empty)js/jquery-2.1.4.min.js"></script>
-    <script src="@Model.String("PathPrefix", string.Empty)js/bootstrap.min.js"></script>
     
-    <link href="@Model.String("PathPrefix", string.Empty)css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" target="blank" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link href="@Model.String("PathPrefix", string.Empty)css/milligram.min.css" rel="stylesheet" />
     <link href="@Model.String("PathPrefix", string.Empty)css/font-awesome.min.css" rel="stylesheet" />
     <link href="@Model.String("PathPrefix", string.Empty)css/site.css" rel="stylesheet" />
 </head>
 
 <body>
     <main>
-        <div class="row">
-            <div class="col col-md-3">
-                @Html.Partial("Sidebar\\_NamespaceTree")
-            </div>
-            <div class="col col-md-9">
-                @RenderBody()
+        <div class="container">
+            <div class="row">
+                <div class="column">
+                    @Html.Partial("Sidebar\\_NamespaceTree")
+                </div>
+                <div class="column column-75">
+                    @RenderBody()
+                </div>
             </div>
         </div>
     </main>

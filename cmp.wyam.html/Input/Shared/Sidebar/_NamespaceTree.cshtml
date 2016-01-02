@@ -1,8 +1,11 @@
 <div id="namespace-tree">
-    <h2>Project Structure</h2>
-    <hr />
+    <h5>Project Structure</h5>
     <div class="tree">
         <ul>
+            <li>
+                <a href="@Model.String("PathPrefix", string.Empty)index.html" style="padding-left:35px;">Index</a>
+            </li>
+            
             @foreach(IDocument namespaces in Documents.FromPipeline("Code")
                                                      .Where(x => x.Get<bool>("IsResult") && x.String("Kind") == "Namespace" && x.String("QualifiedName") != string.Empty)
                                                      .OrderBy(x => x.String("QualifiedName")))
