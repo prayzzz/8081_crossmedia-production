@@ -1,0 +1,13 @@
+@{
+    var properties = (IEnumerable<IDocument>)ViewData["properties"];
+}
+
+h3. Properties
+
+@foreach(IDocument property in @properties)
+{
+    property.String("Accessibility");
+    property.Get<IDocument>("Type").String("DisplayName");
+    property.String("FullName");
+    property.String("Summary");
+}

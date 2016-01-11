@@ -1,0 +1,35 @@
+@using System.Text.RegularExpressions;
+
+@{
+    IDocument member = (IDocument)ViewData["member"];
+
+    var name = member.String("FullName");
+    var type = member.String("SpecificKind");
+    var description = @Regex.Replace(member.String("Summary"), "<.*?>", string.Empty);
+    var syntax = member.String("Syntax");
+}
+@{
+    var properties = member.List<IDocument>("Members")
+        .Where(x => x.Get<bool>("IsResult") && x.String("SpecificKind") == "Property")
+        .OrderBy(x => x.String("FullName"));
+
+    var methods = member.List<IDocument>("Members")
+        .Where(x => x.Get<bool>("IsResult") && x.String("SpecificKind") == "Method")
+        .OrderBy(x => x.String("FullName"));
+
+    var values = member.List<IDocument>("Members")
+        .Where(x => x.Get<bool>("IsResult") && x.String("SpecificKind") == "Field")
+        .OrderBy(x => x.String("FullName"));
+
+    ViewData["syntax"] = syntax;
+    ViewData["values"] = values;
+    ViewData["properties"] = properties;
+    ViewData["methods"] = methods;
+}
+
+h2. @name - @type
+
+@Html.Partial("_Syntax")
+@Html.Partial("_EnumMember")
+@Html.Partial("_Properties")
+@Html.Partial("_Methods")

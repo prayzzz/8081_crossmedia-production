@@ -1,5 +1,6 @@
 [Oo]utput/
 cmp.wyam.html/src/
+cmp.wyam.confluence/src/
 
 # User-specific files
 *.suo

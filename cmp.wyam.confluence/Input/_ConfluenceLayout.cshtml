@@ -1,0 +1,32 @@
+@using System.Text.RegularExpressions;
+
+h1. Some Headline
+
+{toc:printable=true|style=square|maxLevel=2|indent=5px|minLevel=2|class=bigpink|type=list|outline=true}
+
+@foreach (IDocument namespaces in Documents.FromPipeline("Code")
+    .Where(x => x.String("SpecificKind") == "Namespace" && x.String("QualifiedName") != string.Empty)
+    .OrderBy(x => x.String("QualifiedName")))
+{
+    var name = namespaces.String("QualifiedName");
+    var members = namespaces.List<IDocument>("MemberTypes")
+                .Where(x => x.Get<bool>("IsResult"))
+                .OrderBy(x => x.String("QualifiedName"))
+                .ToList();
+
+    @if (members.Count == 0)
+    {
+        continue;
+    }
+
+    @Html.Raw("h1. " + name)
+    @Html.Raw("----")
+
+    @foreach (IDocument member in members)
+    {
+        ViewData["member"] = @member;
+        @Html.Partial("_Member");
+    }
+}
+
+@RenderBody()

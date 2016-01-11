@@ -1,0 +1,10 @@
+@{
+    var values = (IEnumerable<IDocument>)ViewData["values"];
+}
+
+h3. Values
+
+@foreach(IDocument value in @values)
+{
+    value.String("FullName");
+}
