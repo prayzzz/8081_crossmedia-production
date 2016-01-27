@@ -1,0 +1,20 @@
+Assemblies.LoadFile(@"Input\lib\cmp.wyam.confluence.dll");
+
+===
+---
+
+// Analyze solution
+Pipelines.Add("Code",
+	ReadSolution(@"..\src\SoundCloud.Api\SoundCloud.Api.sln")
+		.WhereProject(x => !x.EndsWith("Test")),
+	AnalyzeCSharp()
+        .WherePublic(true)
+);
+
+
+// Write symbol sites
+Pipelines.Add("symbols",
+	Documents("Code"),
+    Confluence("SoundCloud Api Documentation"),
+	WriteFiles(".txt")
+);
