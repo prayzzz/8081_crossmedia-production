@@ -1,0 +1,24 @@
+Packages.Path = @"input\lib";
+Packages.Install("PDFsharp-MigraDoc", null, true);
+
+Assemblies.LoadFile(@"Input\lib\cmp.wyam.Pdf\cmp.wyam.Pdf.dll");
+// Assemblies.LoadFile(@"Input\lib\PDFsharp-MigraDoc-GDI.1.50.4000-beta3b\lib\net20\MigraDoc.DocumentObjectModel-gdi.dll");
+
+===
+---
+
+// Analyze solution
+Pipelines.Add("Code",
+	ReadSolution(@"src\SoundCloud.Api.sln")
+		.WhereProject(x => !x.EndsWith("Test")),
+	AnalyzeCSharp()
+        .WherePublic(true)
+);
+
+
+// Write symbol sites
+Pipelines.Add("symbols",
+	Documents("Code"),
+    Pdf("SoundCloud.Api Documentation", "prayzzz", "logo.jpg"),
+	WriteFiles(".pdf")
+);

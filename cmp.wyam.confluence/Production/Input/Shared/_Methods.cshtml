@@ -1,0 +1,10 @@
+@{
+    var methods = (IEnumerable<IDocument>)ViewData["methods"];
+}
+
+h3. Methods
+
+@foreach(IDocument method in @methods)
+{
+    method.String("Accessibiltiy"); method.Get<IDocument>("ReturnType").String("DisplayName"); method.String("FullName"); method.String("Summary");
+}
